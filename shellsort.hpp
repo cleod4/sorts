@@ -6,20 +6,21 @@
 using namespace std;
 
 template <typename Comparable>
-void shellsort(vector<Comparable> &list, long long left, long long right){
-	// using D. Shell's gaps
+void shellsort(long long left, long long right, vector<Comparable>* list){
+	// Using D. Shell's gaps.
 	long long gap = (right - left) / 2;
 
-	for(; gap > 0; gap/=2){
-		for(long long i = left+gap; i <= right; i++){
-			for(long long j = i; j-gap >= 0 && list[j] < list[j-gap]; j=j-gap){
-				swap(list[j], list[j-gap]);
+	for (; gap > 0; gap/=2) {
+		for (long long i = left+gap; i <= right; i++) {
+			for (long long j = i; j-gap >= 0
+					&& (*list)[j] < (*list)[j-gap]; j=j-gap) {
+				swap((*list)[j], (*list)[j-gap]);
 			}
 		}
 	}
 }
 
 template <typename Comparable>
-void shellsort(vector<Comparable> &list){
-	shellsort(list, 0, list.size()-1);
+void shellsort(vector<Comparable>* list){
+	shellsort(0, list->size()-1, list);
 }

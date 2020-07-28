@@ -9,55 +9,58 @@
 using namespace std;
 
 template <typename Comparable>
-Comparable& median3(vector<Comparable> &list, long long left, long long right){
+Comparable& median3(long long left, long long right, vector<Comparable>* list) {
 	long long center = (left + right)/2;
-	if(list[left] > list[center])
-		swap(list[left], list[center]);
-	if(list[left] > list[right])
-		swap(list[right], list[left]);
-	if(list[center] > list[right])
-		swap(list[center], list[right]);
 
-	swap(list[center], list[right-1]);
-	return list[right-1];
+	if((*list)[left] > (*list)[center])
+		swap((*list)[left], (*list)[center]);
+	if((*list)[left] > (*list)[right])
+		swap((*list)[right], (*list)[left]);
+	if((*list)[center] > (*list)[right])
+		swap((*list)[center], (*list)[right]);
+
+	swap((*list)[center], (*list)[right]);
+	return (*list)[right];
 }
 
 template <typename Comparable>
-void quicksort(vector<Comparable> &list, long long left, long long right){
-	if(left == right)
+void quicksort(long long left, long long right, vector<Comparable>* list) {
+	if(left >= right)
 		return;
 
-	if(right - left == 1){ // size 2
-		swap(list[left], list[right]);
+	if (right - left == 1 && (*list)[left] > (*list)[right]) { // Size 2
+		swap((*list)[left], (*list)[right]);
 		return;
 	}
 
-	Comparable pivot = median3(list, left, right);
+	Comparable pivot = median3(left, right, list);
 
-	// partition the array
-	long long i = left;
-	long long j = right-1;
+	// Partition the array.
+	long long i = left-1;
+	long long j = right;
 
-	for(;;){
-		while(list[++i] < pivot){}
-		while(list[--j] > pivot){}
-		if(i<j)
-			swap(list[i], list[j]);
-		else
+	for(;;) {
+		while((*list)[++i] < pivot){}
+		while((*list)[--j] > pivot){}
+
+		if (i < j) {
+			swap((*list)[i], (*list)[j]);
+		} else {
 			break;
+		}
 	}
 
-	// restore pivot
-	swap(list[i], list[right-1]);
+	// Restore pivot.
+	swap((*list)[i], (*list)[right]);
 
-	// quicksort left
-	quicksort(list, left, i-1);
+	// Quicksort left.
+	quicksort(left, i - 1, list);
 
-	// quicksort right
-	quicksort(list, i+1, right);
+	// Quicksort right.
+	quicksort(i + 1, right, list);
 }
 
 template <typename Comparable>
-void quicksort(vector<Comparable> &list){
-	quicksort(list, 0, list.size()-1);
+void quicksort(vector<Comparable>* list){
+	quicksort(0, list->size()-1, list);
 }
