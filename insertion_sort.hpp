@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename Comparable>
-void InsertionSort(long long left, long long right,vector<Comparable>* list) {
+void InsertionSort(long long left, long long right, vector<Comparable>* list) {
 	for (long long i = left; i <= right; i++) {
 		Comparable temp = (*list)[i];
 		if(i == 0)
