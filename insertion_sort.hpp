@@ -5,8 +5,8 @@
 using namespace std;
 
 template <typename Comparable>
-void insertion_sort(long long left, long long right,vector<Comparable>* list){
-	for(long long i = left; i <= right; i++){
+void InsertionSort(long long left, long long right,vector<Comparable>* list) {
+	for (long long i = left; i <= right; i++) {
 		Comparable temp = (*list)[i];
 		if(i == 0)
 			continue;
@@ -29,6 +29,6 @@ void insertion_sort(long long left, long long right,vector<Comparable>* list){
 }
 
 template <typename Comparable>
-void insertion_sort(vector<Comparable>* list){
-	insertion_sort(0, list->size()-1, list);
+void InsertionSort(vector<Comparable>* list){
+	InsertionSort(0, list->size() - 1, list);
 }

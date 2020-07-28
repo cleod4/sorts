@@ -6,7 +6,7 @@
 using namespace std;
 
 template <typename Comparable>
-void shellsort(long long left, long long right, vector<Comparable>* list){
+void ShellSort(long long left, long long right, vector<Comparable>* list){
 	// Using D. Shell's gaps.
 	long long gap = (right - left) / 2;
 
@@ -21,6 +21,6 @@ void shellsort(long long left, long long right, vector<Comparable>* list){
 }
 
 template <typename Comparable>
-void shellsort(vector<Comparable>* list){
-	shellsort(0, list->size()-1, list);
+void ShellSort(vector<Comparable>* list){
+	ShellSort(0, list->size()-1, list);
 }

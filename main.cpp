@@ -6,24 +6,24 @@
 #include <thread>
 #include <chrono>
 
-// include the sorts
+// Include the sorts.
 #include "insertion_sort.hpp"
-#include "mergesort.hpp"
+#include "merge_sort.hpp"
 #include "heapsort.hpp"
 #include "quicksort.hpp"
 #include "shellsort.hpp"
-#include "bubblesort.hpp"
+#include "bubble_sort.hpp"
 
 using namespace std;
 using namespace std::chrono;
 
 enum SortType {
 	INSERTION_SORT,
-	MERGESORT,
+	MERGE_SORT,
 	HEAPSORT,
 	QUICKSORT,
 	SHELLSORT,
-	BUBBLESORT
+	BUBBLE_SORT
 };
 
 void SortWrapper(SortType sort_type, vector<long long>* container) {
@@ -31,27 +31,27 @@ void SortWrapper(SortType sort_type, vector<long long>* container) {
 	string sort_name = "";
 	switch (sort_type) {
 		case(INSERTION_SORT):
-			insertion_sort(container);
+			InsertionSort(container);
 			sort_name = "Insertion Sort";
 			break;
-		case(MERGESORT):
-			mergesort(container);
+		case(MERGE_SORT):
+			MergeSort(container);
 			sort_name = "MergeSort";
 			break;
 		case(HEAPSORT):
-			heapsort(container);
+			HeapSort(container);
 			sort_name = "HeapSort";
 			break;
 		case(QUICKSORT):
-			quicksort(container);
+			QuickSort(container);
 			sort_name = "QuickSort";
 			break;
 		case(SHELLSORT):
-			shellsort(container);
+			ShellSort(container);
 			sort_name = "ShellSort";
 			break;
-		case(BUBBLESORT):
-			bubblesort(container);
+		case(BUBBLE_SORT):
+			BubbleSort(container);
 			sort_name = "BubbleSort";
 			break;
 		default:
@@ -66,14 +66,13 @@ void SortWrapper(SortType sort_type, vector<long long>* container) {
 int main(void) {
 	long long container_size = 10;
 	vector<long long> container;
-	cout << "size of container: ";
+	cout << "Size of container: ";
 	cin >> container_size;
-	// cout << container_size << endl;
 	srand(time(NULL));
 
 	container_size = abs(container_size);
 
-	// create container of size
+	// Create container of size.
 	for(long long i = 0; i < container_size; i++){
 		container.push_back(rand() % container_size);
 	}
@@ -81,7 +80,7 @@ int main(void) {
 	bool valid_input = false;
 	unsigned int input = 1;
 
-	// Copy the containers
+	// Copy the containers.
 	vector<vector<long long>> containers;
 	containers.resize(6);
 
@@ -93,11 +92,11 @@ int main(void) {
 	containers[5] = container;
 
 	thread thread1(SortWrapper, INSERTION_SORT, &containers[0]);
-	thread thread2(SortWrapper, MERGESORT, &containers[1]);
+	thread thread2(SortWrapper, MERGE_SORT, &containers[1]);
 	thread thread3(SortWrapper, HEAPSORT, &containers[2]);
 	thread thread4(SortWrapper, QUICKSORT, &containers[3]);
 	thread thread5(SortWrapper, SHELLSORT, &containers[4]);
-	thread thread6(SortWrapper, BUBBLESORT, &containers[5]);
+	thread thread6(SortWrapper, BUBBLE_SORT, &containers[5]);
 
 	thread1.join();
 	thread2.join();
@@ -112,7 +111,8 @@ int main(void) {
 			cout << "Mismatch on container: " << i - 1 << " and " << i << endl;
 			for (int j = 0; j < containers[i].size(); j++) {
 				if (containers[i-1][j] != containers[i][j]) {
-					cout << "j:" << j << ":" << containers[i-1][j] << ":" << containers[i][j] << endl;
+					cout << "j:" << j << ":" << containers[i-1][j] << ":"
+						<< containers[i][j] << endl;
 				}
 			}
 		}

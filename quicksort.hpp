@@ -9,7 +9,7 @@
 using namespace std;
 
 template <typename Comparable>
-Comparable& median3(long long left, long long right, vector<Comparable>* list) {
+Comparable& Median3(long long left, long long right, vector<Comparable>* list) {
 	long long center = (left + right)/2;
 
 	if((*list)[left] > (*list)[center])
@@ -24,7 +24,7 @@ Comparable& median3(long long left, long long right, vector<Comparable>* list) {
 }
 
 template <typename Comparable>
-void quicksort(long long left, long long right, vector<Comparable>* list) {
+void QuickSort(long long left, long long right, vector<Comparable>* list) {
 	if(left >= right)
 		return;
 
@@ -33,7 +33,7 @@ void quicksort(long long left, long long right, vector<Comparable>* list) {
 		return;
 	}
 
-	Comparable pivot = median3(left, right, list);
+	Comparable pivot = Median3(left, right, list);
 
 	// Partition the array.
 	long long i = left-1;
@@ -53,14 +53,14 @@ void quicksort(long long left, long long right, vector<Comparable>* list) {
 	// Restore pivot.
 	swap((*list)[i], (*list)[right]);
 
-	// Quicksort left.
-	quicksort(left, i - 1, list);
+	// QuickSort left.
+	QuickSort(left, i - 1, list);
 
-	// Quicksort right.
-	quicksort(i + 1, right, list);
+	// QuickSort right.
+	QuickSort(i + 1, right, list);
 }
 
 template <typename Comparable>
-void quicksort(vector<Comparable>* list){
-	quicksort(0, list->size()-1, list);
+void QuickSort(vector<Comparable>* list){
+	QuickSort(0, list->size()-1, list);
 }
